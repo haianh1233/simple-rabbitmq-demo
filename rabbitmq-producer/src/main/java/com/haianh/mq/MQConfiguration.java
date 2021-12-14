@@ -58,5 +58,6 @@ public class MQConfiguration {
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
         template.setMessageConverter(messageConverter());
         return template;
+
     }
 }
