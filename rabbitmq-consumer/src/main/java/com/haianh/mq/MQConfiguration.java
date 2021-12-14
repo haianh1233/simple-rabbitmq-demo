@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class MQConfiguration {
     public static final String QUEUE_MESSAGE_A = "message_queue_a";
     public static final String QUEUE_MESSAGE_B = "message_queue_b";
-    public static final String MESSAGE_EXCHANGE = "message_exchange";
+    public static final String MESSAGE_EXCHANGE = "direct_exchange";
     public static final String ROUTING_KEY_A = "message_routingKey_A";
     public static final String ROUTING_KEY_B = "message_routingKey_B";
 
@@ -28,12 +28,12 @@ public class MQConfiguration {
     }
 
     @Bean
-    public TopicExchange exchange() {
-        return new TopicExchange(MESSAGE_EXCHANGE);
+    public DirectExchange exchange() {
+        return new DirectExchange(MESSAGE_EXCHANGE);
     }
 
     @Bean
-    public Binding bindingA(Queue queueA, TopicExchange exchange) {
+    public Binding bindingA(Queue queueA, DirectExchange exchange) {
         return BindingBuilder
                 .bind(queueA)
                 .to(exchange)
@@ -41,7 +41,7 @@ public class MQConfiguration {
     }
 
     @Bean
-    public Binding bindingB(Queue queueB, TopicExchange exchange) {
+    public Binding bindingB(Queue queueB, DirectExchange exchange) {
         return BindingBuilder
                 .bind(queueB)
                 .to(exchange)
