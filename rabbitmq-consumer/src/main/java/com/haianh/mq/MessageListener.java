@@ -25,6 +25,7 @@ public class MessageListener {
         ByteArrayInputStream bis = new ByteArrayInputStream(message.getBody());
         ObjectInput in = new ObjectInputStream(bis);
         CustomMessage customMessage = (CustomMessage) in.readObject();
+
         System.out.println(MQConfiguration.QUEUE_MESSAGE_B + "->" + customMessage);
     }
 
