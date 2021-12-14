@@ -14,7 +14,8 @@ public class MQConfiguration {
     public static final String QUEUE_MESSAGE_A = "message_queue_a";
     public static final String QUEUE_MESSAGE_B = "message_queue_b";
     public static final String MESSAGE_EXCHANGE = "message_exchange";
-    public static final String ROUTING_KEY = "message_routingKey";
+    public static final String ROUTING_KEY_A = "message_routingKey_A";
+    public static final String ROUTING_KEY_B = "message_routingKey_B";
 
     @Bean
     public Queue queueA() {
@@ -36,7 +37,7 @@ public class MQConfiguration {
         return BindingBuilder
                 .bind(queueA)
                 .to(exchange)
-                .with(ROUTING_KEY);
+                .with(ROUTING_KEY_A);
     }
 
     @Bean
@@ -44,7 +45,7 @@ public class MQConfiguration {
         return BindingBuilder
                 .bind(queueB)
                 .to(exchange)
-                .with(ROUTING_KEY);
+                .with(ROUTING_KEY_B);
     }
 
     @Bean
