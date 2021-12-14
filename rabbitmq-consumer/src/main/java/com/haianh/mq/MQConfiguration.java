@@ -13,11 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class MQConfiguration {
     public static final String QUEUE_MESSAGE_A = "message.a";
     public static final String QUEUE_MESSAGE_B = "message.b";
-    public static final String QUEUE_MESSAGE_ALL = "message.all";
-    public static final String MESSAGE_EXCHANGE = "topic_exchange";
-    public static final String ROUTING_A = "routing.a";
-    public static final String ROUTING_B = "routing.b";
-    public static final String ROUTING_ALL = "routing.*";
+    public static final String MESSAGE_EXCHANGE = "header.exchange";
 
     @Bean
     public Queue queueA() {
@@ -30,37 +26,26 @@ public class MQConfiguration {
     }
 
     @Bean
-    public Queue allQueue() {
-        return new Queue(QUEUE_MESSAGE_ALL);
+    public HeadersExchange exchange() {
+        return new HeadersExchange(MESSAGE_EXCHANGE);
     }
 
     @Bean
-    public TopicExchange exchange() {
-        return new TopicExchange(MESSAGE_EXCHANGE);
-    }
-
-    @Bean
-    public Binding bindingA(Queue queueA, TopicExchange exchange) {
+    public Binding bindingA(Queue queueA, HeadersExchange exchange) {
         return BindingBuilder
                 .bind(queueA)
                 .to(exchange)
-                .with(ROUTING_A);
+                .where("colour")
+                .matches("black");
     }
 
     @Bean
-    public Binding bindingB(Queue queueB, TopicExchange exchange) {
+    public Binding bindingB(Queue queueB, HeadersExchange exchange) {
         return BindingBuilder
                 .bind(queueB)
                 .to(exchange)
-                .with(ROUTING_B);
-    }
-
-    @Bean
-    public Binding bindingAll(Queue allQueue, TopicExchange exchange) {
-        return BindingBuilder
-                .bind(allQueue)
-                .to(exchange)
-                .with(ROUTING_ALL);
+                .where("colour")
+                .matches("green");
     }
 
     @Bean
