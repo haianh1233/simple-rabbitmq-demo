@@ -17,15 +17,26 @@ public class MessagePublisher {
         this.template = template;
     }
 
-    @PostMapping("/publish")
+    @PostMapping("/publishA")
     public String publishMessageA(@RequestBody CustomMessage customMessage) {
         customMessage.setMessageId(UUID.randomUUID().toString());
         customMessage.setMessageDate(new Date());
         template.convertAndSend(MQConfiguration.MESSAGE_EXCHANGE,
-                "",
+                MQConfiguration.ROUTING_A,
                 customMessage);
 
-        return "Message Published";
+        return "Message A Published";
+    }
+
+    @PostMapping("/publishB")
+    public String publishMessageB(@RequestBody CustomMessage customMessage) {
+        customMessage.setMessageId(UUID.randomUUID().toString());
+        customMessage.setMessageDate(new Date());
+        template.convertAndSend(MQConfiguration.MESSAGE_EXCHANGE,
+                MQConfiguration.ROUTING_B,
+                customMessage);
+
+        return "Message B Published";
     }
 
 }

@@ -15,4 +15,9 @@ public class MessageListener {
     public void listenerB(CustomMessage message) {
         System.out.println(MQConfiguration.QUEUE_MESSAGE_B + "->" + message);
     }
+
+    @RabbitListener(queues = MQConfiguration.QUEUE_MESSAGE_ALL)
+    public void listenerALl(CustomMessage message) {
+        System.out.println(MQConfiguration.QUEUE_MESSAGE_ALL + "->" + message);
+    }
 }
