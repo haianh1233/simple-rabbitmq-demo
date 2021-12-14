@@ -10,4 +10,5 @@ public class RabbitmqProducerApplication {
         SpringApplication.run(RabbitmqProducerApplication.class, args);
     }
 
+
 }
