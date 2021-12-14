@@ -28,8 +28,8 @@ public class MQConfiguration {
     }
 
     @Bean
-    public TopicExchange exchange() {
-        return new TopicExchange(MESSAGE_EXCHANGE);
+    public DirectExchange exchange() {
+        return new DirectExchange(MESSAGE_EXCHANGE);
     }
 
     @Bean
